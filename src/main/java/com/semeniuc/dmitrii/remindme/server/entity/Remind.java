@@ -20,7 +20,7 @@ public class Remind {
     @Column(name = "title", nullable = false, length = 50)
     private String title;
     @Column(name = "remind_date", nullable = false)
-    private Date date;
+    private Date remindDate;
 
     public Remind() {
     }
@@ -41,11 +41,11 @@ public class Remind {
         this.title = title;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getRemindDate() {
+        return remindDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setRemindDate(Date remindDate) {
+        this.remindDate = remindDate;
     }
 }
