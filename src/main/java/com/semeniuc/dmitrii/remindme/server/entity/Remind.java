@@ -5,9 +5,6 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.Date;
 
-/**
- * Created by Dmitrii on 8/22/2016.
- */
 @Entity
 @Table(name = "remind")
 public class Remind {
@@ -19,6 +16,7 @@ public class Remind {
 
     @Column(name = "title", nullable = false, length = 50)
     private String title;
+
     @Column(name = "remind_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date remindDate;

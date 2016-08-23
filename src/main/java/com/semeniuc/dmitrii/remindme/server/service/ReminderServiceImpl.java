@@ -7,31 +7,24 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Created by Dmitrii on 8/23/2016.
- */
 @Service
-public class ReminderServiceImpl implements ReminderService{
+public class ReminderServiceImpl implements ReminderService {
 
     @Autowired
     private RemindRepository repository;
 
-    @Override
     public List<Remind> getAll() {
         return repository.findAll();
     }
 
-    @Override
-    public Remind getById(long id) {
+    public Remind getByID(long id) {
         return repository.findOne(id);
     }
 
-    @Override
     public Remind save(Remind remind) {
         return repository.saveAndFlush(remind);
     }
 
-    @Override
     public void remove(long id) {
         repository.delete(id);
     }

@@ -1,17 +1,12 @@
 package com.semeniuc.dmitrii.remindme.server.controller;
 
 import com.semeniuc.dmitrii.remindme.server.entity.Remind;
-import com.semeniuc.dmitrii.remindme.server.repository.RemindRepository;
 import com.semeniuc.dmitrii.remindme.server.service.ReminderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
-/**
- * Created by Dmitrii on 8/21/2016.
- */
 @RestController
 public class ReminderController {
 
@@ -26,19 +21,20 @@ public class ReminderController {
 
     @RequestMapping(value = "/reminders/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public Remind getReminder(@PathVariable("id") long remindId) {
-        return service.getById(remindId);
+    public Remind getReminder(@PathVariable("id") long remindID) {
+        return service.getByID(remindID);
     }
 
     @RequestMapping(value = "/reminders", method = RequestMethod.POST)
     @ResponseBody
-    public Remind saveReminder(@RequestBody Remind remind) {
+    public Remind saveRemider(@RequestBody Remind remind) {
         return service.save(remind);
     }
 
-    @RequestMapping(value = "/reminders/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/reminders/{id}", method = RequestMethod.DELETE)
     @ResponseBody
-    public void deleteReminder(@PathVariable("id") long remindId) {
-        service.remove(remindId);
+    public void delete(@PathVariable long id) {
+        service.remove(id);
     }
+
 }

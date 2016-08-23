@@ -12,13 +12,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Created by Dmitrii on 8/21/2016.
- */
 @Configuration
 @EnableWebMvc
 @ComponentScan("com.semeniuc.dmitrii.remindme.server")
-public class WebConfig extends WebMvcConfigurerAdapter{
+public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {

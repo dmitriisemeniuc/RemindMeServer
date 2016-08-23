@@ -19,9 +19,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-/**
- * Created by Dmitrii on 8/22/2016.
- */
 @Configuration
 @EnableJpaRepositories("com.semeniuc.dmitrii.remindme.server.repository")
 @EnableTransactionManagement
@@ -33,12 +30,13 @@ public class DatabaseConfig {
     private Environment env;
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
         em.setPackagesToScan(env.getRequiredProperty("db.entity.package"));
         em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         em.setJpaProperties(getHibernateProperties());
+
         return em;
     }
 
@@ -57,18 +55,19 @@ public class DatabaseConfig {
         ds.setMinEvictableIdleTimeMillis(Long.valueOf(env.getRequiredProperty("db.minEvictableIdleTimeMillis")));
         ds.setTestOnBorrow(Boolean.valueOf(env.getRequiredProperty("db.testOnBorrow")));
         ds.setValidationQuery(env.getRequiredProperty("db.validationQuery"));
+
         return ds;
     }
 
     @Bean
-    public PlatformTransactionManager transactionManager(){
+    public PlatformTransactionManager transactionManager() {
         JpaTransactionManager manager = new JpaTransactionManager();
-        manager.setEntityManagerFactory(entityManagerFactoryBean().getObject());
+        manager.setEntityManagerFactory(entityManagerFactory().getObject());
 
         return manager;
     }
 
-    private Properties getHibernateProperties() {
+    public Properties getHibernateProperties() {
         try {
             Properties properties = new Properties();
             InputStream is = getClass().getClassLoader().getResourceAsStream("hibernate.properties");
@@ -76,7 +75,8 @@ public class DatabaseConfig {
 
             return properties;
         } catch (IOException e) {
-            throw new IllegalArgumentException("Cannot find hibernate.properties file", e);
+            throw new IllegalArgumentException("Can't find 'hibernate.properties' in classpath!", e);
         }
     }
 }
+
