@@ -1,33 +1,54 @@
 package com.semeniuc.dmitrii.remindme.server.controller;
 
 import com.semeniuc.dmitrii.remindme.server.entity.Remind;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import com.semeniuc.dmitrii.remindme.server.repository.RemindRepository;
+import com.semeniuc.dmitrii.remindme.server.service.ReminderService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Dmitrii on 8/21/2016.
  */
 @RestController
-@RequestMapping("/reminder")
 public class ReminderController {
 
-    @RequestMapping(value = "/get", method = RequestMethod.GET)
+    @Autowired
+    private ReminderService service;
+
+    @RequestMapping(value = "/reminders", method = RequestMethod.GET)
     @ResponseBody
-    public Remind getReminder() {
-        return createMockRemind();
+    public List<Remind> getAllReminders() {
+        return service.getAll();
     }
 
-    private Remind createMockRemind() {
+    @RequestMapping(value = "/reminders/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Remind getReminder(@PathVariable("id") long remindId) {
+        return service.getById(remindId);
+    }
+
+    @RequestMapping(value = "/reminders", method = RequestMethod.POST)
+    @ResponseBody
+    public Remind saveReminder(@RequestBody Remind remind) {
+        return service.save(remind);
+    }
+
+    @RequestMapping(value = "/reminders/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public void deleteReminder(@PathVariable("id") long remindId) {
+        service.remove(remindId);
+    }
+
+   /* private Remind createMockRemind() {
         Remind remind = new Remind();
         remind.setId(1);
         remind.setRemindDate(new Date());
         remind.setTitle("My first Remind");
 
         return remind;
-    }
+    }*/
 
 }

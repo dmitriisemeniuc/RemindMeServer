@@ -1,6 +1,7 @@
 package com.semeniuc.dmitrii.remindme.server;
 
 import com.semeniuc.dmitrii.remindme.server.config.WebConfig;
+import com.semeniuc.dmitrii.remindme.server.repository.RemindRepository;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
@@ -16,6 +17,8 @@ import javax.servlet.ServletRegistration;
 public class ApplicationInitializer implements WebApplicationInitializer {
 
     private final static String DISPATCHER = "dispatcher";
+
+    private RemindRepository repository;
 
     public void onStartup(ServletContext container) {
         // Create the 'root' Spring application context
