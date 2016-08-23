@@ -41,14 +41,4 @@ public class ReminderController {
     public void deleteReminder(@PathVariable("id") long remindId) {
         service.remove(remindId);
     }
-
-   /* private Remind createMockRemind() {
-        Remind remind = new Remind();
-        remind.setId(1);
-        remind.setRemindDate(new Date());
-        remind.setTitle("My first Remind");
-
-        return remind;
-    }*/
-
 }
